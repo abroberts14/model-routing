@@ -1,0 +1,7 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "model-routing",
+  "version": "1.0.0",
+  "description": "Keep the expensive model for decisions and put everything else on a cheaper one: four agents pinned to the cheapest model that does each job, a default model for any built-in subagent spawned without one, and a short routing note at the start of every session.",
+  "author": { "name": "Aaron Roberts" }
+}
