@@ -3,7 +3,7 @@
 
 Runs on PreToolUse for the Agent tool. If the call has no `model` and its
 `subagent_type` is one of Claude Code's generic built-ins, set one: haiku for
-Explore, sonnet for the rest. A call that names a model is left alone, and so is
+Explore, opus for the rest. A call that names a model is left alone, and so is
 any plugin or user agent, whose own frontmatter already pins one (a per-call model
 outranks frontmatter, so injecting one there would silently override it).
 
@@ -14,7 +14,7 @@ proceeds exactly as it would have.
 import json
 import sys
 
-DEFAULTS = {"general-purpose": "sonnet", "Explore": "haiku", "Plan": "sonnet", "claude": "sonnet"}
+DEFAULTS = {"general-purpose": "opus", "Explore": "haiku", "Plan": "opus", "claude": "opus"}
 
 try:
     tool_input = json.load(sys.stdin).get("tool_input") or {}

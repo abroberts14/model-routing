@@ -6,10 +6,10 @@ everything else on a cheaper one.
 Three pieces:
 
 - **Four agents**, each pinned to the cheapest model that does its job. `architect`
-  on Fable, for one decision at a time. `worker` and `reviewer` on Sonnet. `editor`
+  on Fable, for one decision at a time. `worker` and `reviewer` on Opus. `editor`
   on Haiku at low effort.
 - **One hook** that gives a model to any built-in subagent spawned without one:
-  Haiku for `Explore`, Sonnet for `general-purpose`, `Plan`, and `claude`. Without
+  Haiku for `Explore`, Opus for `general-purpose`, `Plan`, and `claude`. Without
   it those spawns inherit the session's model, so delegating from a Fable or Opus
   session buys you a Fable or Opus worker.
 - **A routing note**, [`ROUTING.md`](ROUTING.md), attached to the start of every
@@ -60,8 +60,8 @@ Built and tested on Claude Code 2.1.272. `bashOutputMaxChars` needs 2.1.261 or l
 | Agent | Model | Use it for |
 | --- | --- | --- |
 | `architect` | Fable | One decision where being wrong is expensive: an approach that spans systems or changes a data model, a bug that survived two fixes, anything touching auth, isolation, payments, or production data, a long-lived tradeoff. Gets a brief, returns a decision and a step plan. Never implements. |
-| `worker` | Sonnet | The default. A scoped piece of work once the direction is settled: a bounded code change, tests for existing behaviour, a config change, a doc. Finishes it, runs it, reports what it verified and what it assumed. |
-| `reviewer` | Sonnet | Work you did not do. Two questions: is it wrong, and is it finished. Findings with file and line, plus a per-item done list. Reports, never fixes. |
+| `worker` | Opus | The default. A scoped piece of work once the direction is settled: a bounded code change, tests for existing behaviour, a config change, a doc. Finishes it, runs it, reports what it verified and what it assumed. |
+| `reviewer` | Opus | Work you did not do. Two questions: is it wrong, and is it finished. Findings with file and line, plus a per-item done list. Reports, never fixes. |
 | `editor` | Haiku, low effort | Mechanical edits with zero design decisions: renames, version bumps, moving files, applying a given diff, lint fixes. |
 
 Each agent's description is always-on context in every session. For these four
@@ -93,9 +93,9 @@ from an Opus session, spawning both with no model on the call:
 | Setup | `Explore` ran on | `general-purpose` ran on |
 | --- | --- | --- |
 | `CLAUDE_CODE_SUBAGENT_MODEL=haiku`, no hook | Opus | Haiku |
-| No variable, this plugin loaded | Haiku | Sonnet |
+| No variable, this plugin loaded | Haiku | Opus |
 
-So if you do not care about `Explore` and `Plan`, set the variable to `sonnet` in
+So if you do not care about `Explore` and `Plan`, set the variable to `opus` in
 the `env` block of your settings and delete the PreToolUse entry from
 `hooks/hooks.json`. The hook stays on by default here because `Explore` is the
 spawn that happens most, and from a Fable or Opus session it runs on Opus.
